@@ -15,5 +15,14 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(-1);
     expect(products[0].price).equal(0);
   });
+  it("test 2", function() {
+    const coTest = new CarInsurance([ new Product("foo", 0, 10) ]);
+
+    const products = coTest.updatePrice();
+
+    expect(products[0].name).equal("foo");
+    expect(products[0].sellIn).equal(-1);
+    expect(products[0].price).equal(8);
+  });
 
 });
