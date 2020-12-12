@@ -24,5 +24,14 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(-1);
     expect(products[0].price).equal(8);
   });
+  it("test 3", function() {
+    const coTest = new CarInsurance([ new Product("Full Coverage", 2, 10) ]);
+
+    const products = coTest.updatePrice();
+
+    expect(products[0].name).equal("Full Coverage");
+    expect(products[0].sellIn).equal(1);
+    expect(products[0].price).equal(11);
+  });
 
 });
