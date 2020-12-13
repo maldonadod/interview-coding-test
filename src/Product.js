@@ -14,7 +14,7 @@ class Product {
       this.price = this.price + PRICE_INCREMENT_UNIT;
     }
   }
-  decreaseProductPrice() {
+  decreasePrice() {
     if (isPositive(this.price)) {
       this.price = this.price - PRICE_DECREMENT_UNIT;
     }

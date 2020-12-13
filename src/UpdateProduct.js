@@ -19,9 +19,9 @@ class UpdateProduct {
     this.product.ifSellIn(isLowerThan(0), () => this.product.dropPrice())
   }
   updateNormalProduct() {
-    this.product.decreaseProductPrice()
+    this.product.decreasePrice()
     this.product.decreaseSellIn()
-    this.product.ifSellIn(isLowerThan(0), () => this.product.decreaseProductPrice())
+    this.product.ifSellIn(isLowerThan(0), () => this.product.decreasePrice())
   }
   execute() {
     if (this.product.isNamed(MEGA_COVERAGE)) {}
