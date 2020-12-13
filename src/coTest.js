@@ -86,14 +86,6 @@ class CarInsurance {
     return this.product.name != 'Mega Coverage'
   }
 
-  isNotSpecialFullCoverage() {
-    return this.product.name != 'Special Full Coverage';
-  }
-
-  isNotFullCoverage() {
-    return this.product.name != 'Full Coverage';
-  }
-  
   isFullCoverage() {
     return this.product.name == 'Full Coverage';
   }
