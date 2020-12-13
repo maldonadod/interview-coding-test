@@ -34,10 +34,10 @@ class CarInsurance {
         if (this.isFullCoverage()) {
           this.increaseProductPrice()
         } else {
-          if (this.isNotSpecialFullCoverage()) {
-            this.decreaseProductPrice()
-          } else {
+          if (this.isSpecialFullCoverage()) {
             this.dropProductPrice();
+          } else {
+            this.decreaseProductPrice()
           }
         }
       }
