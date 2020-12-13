@@ -12,46 +12,47 @@ class CarInsurance {
   }
   updatePrice() {
     for (var i = 0; i < this.products.length; i++) {
-      if (this.products[i].name != 'Full Coverage' && this.products[i].name != 'Special Full Coverage') {
-        if (this.products[i].price > 0) {
-          if (this.products[i].name != 'Mega Coverage') {
-            this.products[i].price = this.products[i].price - 1;
+      const product = this.products[i]
+      if (product.name != 'Full Coverage' && product.name != 'Special Full Coverage') {
+        if (product.price > 0) {
+          if (product.name != 'Mega Coverage') {
+            product.price = product.price - 1;
           }
         }
       } else {
-        if (this.products[i].price < 50) {
-          this.products[i].price = this.products[i].price + 1;
-          if (this.products[i].name == 'Special Full Coverage') {
-            if (this.products[i].sellIn < 11) {
-              if (this.products[i].price < 50) {
-                this.products[i].price = this.products[i].price + 1;
+        if (product.price < 50) {
+          product.price = product.price + 1;
+          if (product.name == 'Special Full Coverage') {
+            if (product.sellIn < 11) {
+              if (product.price < 50) {
+                product.price = product.price + 1;
               }
             }
-            if (this.products[i].sellIn < 6) {
-              if (this.products[i].price < 50) {
-                this.products[i].price = this.products[i].price + 1;
+            if (product.sellIn < 6) {
+              if (product.price < 50) {
+                product.price = product.price + 1;
               }
             }
           }
         }
       }
-      if (this.products[i].name != 'Mega Coverage') {
-        this.products[i].sellIn = this.products[i].sellIn - 1;
+      if (product.name != 'Mega Coverage') {
+        product.sellIn = product.sellIn - 1;
       }
-      if (this.products[i].sellIn < 0) {
-        if (this.products[i].name != 'Full Coverage') {
-          if (this.products[i].name != 'Special Full Coverage') {
-            if (this.products[i].price > 0) {
-              if (this.products[i].name != 'Mega Coverage') {
-                this.products[i].price = this.products[i].price - 1;
+      if (product.sellIn < 0) {
+        if (product.name != 'Full Coverage') {
+          if (product.name != 'Special Full Coverage') {
+            if (product.price > 0) {
+              if (product.name != 'Mega Coverage') {
+                product.price = product.price - 1;
               }
             }
           } else {
-            this.products[i].price = this.products[i].price - this.products[i].price;
+            product.price = product.price - product.price;
           }
         } else {
-          if (this.products[i].price < 50) {
-            this.products[i].price = this.products[i].price + 1;
+          if (product.price < 50) {
+            product.price = product.price + 1;
           }
         }
       }
