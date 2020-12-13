@@ -27,9 +27,9 @@ class CarInsurance {
           }
         }
       }
-      if (this.isNotMegaCoverage()) {
-        this.decreaseProductSellIn();
-      }
+
+      this.decreaseProductSellIn();
+
       if (this.product.sellIn < 0) {
         if (this.isNotFullCoverage()) {
           if (this.isNotSpecialFullCoverage()) {
@@ -53,7 +53,9 @@ class CarInsurance {
   }
   
   decreaseProductSellIn() {
-    this.product.sellIn = this.product.sellIn - 1;
+    if (this.isNotMegaCoverage()) {
+      this.product.sellIn = this.product.sellIn - 1;
+    }
   }
 
   dropProductPrice() {
