@@ -14,9 +14,7 @@ class CarInsurance {
   updatePrice() {
     for (var i = 0; i < this.products.length; i++) {
       this.product = this.products[i]
-      if (this.isNotFullCoverage() && this.isNotSpecialFullCoverage()) {
-        this.decreaseProductPrice()
-      } else {
+      if (this.isFullCoverage() || this.isSpecialFullCoverage()) {
         this.increaseProductPrice()
         if (this.isSpecialFullCoverage()) {
           if (this.product.sellIn < 11) {
@@ -26,6 +24,8 @@ class CarInsurance {
             this.increaseProductPrice()
           }
         }
+      } else {
+        this.decreaseProductPrice()
       }
 
       this.decreaseProductSellIn();
@@ -92,6 +92,10 @@ class CarInsurance {
 
   isNotFullCoverage() {
     return this.product.name != 'Full Coverage';
+  }
+  
+  isFullCoverage() {
+    return this.product.name == 'Full Coverage';
   }
 }
 
