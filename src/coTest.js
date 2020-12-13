@@ -4,6 +4,17 @@ class Product {
     this.sellIn = sellIn;
     this.price = price;
   }
+  increaseProductPrice() {
+    if (this.productHasNotRichMaximumPrice()) {
+      this.price = this.price + 1;
+    }
+  }
+  productHasNotRichMaximumPrice() {
+    return this.price < 50
+  }
+  dropProductPrice() {
+    this.price = this.price - this.price;
+  }
 }
 
 class CarInsurance {
@@ -13,15 +24,15 @@ class CarInsurance {
   }
   updatesBeforeSellInDecreases() {
     if (this.isFullCoverage()) {
-      this.increaseProductPrice()
+      this.product.increaseProductPrice()
     }
     else if (this.isSpecialFullCoverage()) {
-      this.increaseProductPrice()
+      this.product.increaseProductPrice()
       if (this.product.sellIn <= 10) {
-        this.increaseProductPrice()
+        this.product.increaseProductPrice()
       }
       if (this.product.sellIn <= 5) {
-        this.increaseProductPrice()
+        this.product.increaseProductPrice()
       }
     }
     else {
@@ -31,10 +42,10 @@ class CarInsurance {
   updatesAfterSellInDecreases() {
     if (this.product.sellIn < 0) {
       if (this.isFullCoverage()) {
-        this.increaseProductPrice()
+        this.product.increaseProductPrice()
       } else {
         if (this.isSpecialFullCoverage()) {
-          this.dropProductPrice();
+          this.product.dropProductPrice();
         } else {
           this.decreaseProductPrice()
         }
@@ -54,21 +65,11 @@ class CarInsurance {
 
     return this.products;
   }
-
-  increaseProductPrice() {
-    if (this.productHasNotRichMaximumPrice()) {
-      this.product.price = this.product.price + 1;
-    }
-  }
   
   decreaseProductSellIn() {
     if (this.isNotMegaCoverage()) {
       this.product.sellIn = this.product.sellIn - 1;
     }
-  }
-
-  dropProductPrice() {
-    this.product.price = this.product.price - this.product.price;
   }
 
   decreaseProductPrice() {
@@ -81,10 +82,6 @@ class CarInsurance {
   
   isProductPriceNonNegative() {
     return this.product.price > 0
-  }
-  
-  productHasNotRichMaximumPrice() {
-    return this.product.price < 50
   }
 
   isSpecialFullCoverage() {
