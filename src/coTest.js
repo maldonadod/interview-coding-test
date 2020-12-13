@@ -14,15 +14,15 @@ class CarInsurance {
   updatePrice() {
     for (var i = 0; i < this.products.length; i++) {
       this.product = this.products[i]
-      if (this.isFullCoverage() || this.isSpecialFullCoverage()) {
+      if (this.isFullCoverage()) {
         this.increaseProductPrice()
-        if (this.isSpecialFullCoverage()) {
-          if (this.product.sellIn < 11) {
-            this.increaseProductPrice()
-          }
-          if (this.product.sellIn < 6) {
-            this.increaseProductPrice()
-          }
+      } else if (this.isSpecialFullCoverage()) {
+        this.increaseProductPrice()
+        if (this.product.sellIn < 11) {
+          this.increaseProductPrice()
+        }
+        if (this.product.sellIn < 6) {
+          this.increaseProductPrice()
         }
       } else {
         this.decreaseProductPrice()
