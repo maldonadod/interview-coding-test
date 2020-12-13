@@ -21,19 +21,13 @@ class CarInsurance {
           }
         }
       } else {
-        if (this.productHasNotRichMaximumPrice()) {
-          this.increaseProductPrice()
-          if (this.isSpecialFullCoverage()) {
-            if (this.product.sellIn < 11) {
-              if (this.productHasNotRichMaximumPrice()) {
-                this.increaseProductPrice()
-              }
-            }
-            if (this.product.sellIn < 6) {
-              if (this.productHasNotRichMaximumPrice()) {
-                this.increaseProductPrice()
-              }
-            }
+        this.increaseProductPrice()
+        if (this.isSpecialFullCoverage()) {
+          if (this.product.sellIn < 11) {
+            this.increaseProductPrice()
+          }
+          if (this.product.sellIn < 6) {
+            this.increaseProductPrice()
           }
         }
       }
@@ -52,9 +46,7 @@ class CarInsurance {
             this.dropProductPrice();
           }
         } else {
-          if (this.productHasNotRichMaximumPrice()) {
-            this.increaseProductPrice()
-          }
+          this.increaseProductPrice()
         }
       }
     }
@@ -63,7 +55,9 @@ class CarInsurance {
   }
 
   increaseProductPrice() {
-    this.product.price = this.product.price + 1;
+    if (this.productHasNotRichMaximumPrice()) {
+      this.product.price = this.product.price + 1;
+    }
   }
   
   decreaseProductSellIn() {
