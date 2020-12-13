@@ -14,37 +14,37 @@ class CarInsurance {
   updatePrice() {
     for (var i = 0; i < this.products.length; i++) {
       this.product = this.products[i]
-      if (this.product.name != 'Full Coverage' && this.product.name != 'Special Full Coverage') {
+      if (this.isNotFullCoverage() && this.isNotSpecialFullCoverage()) {
         if (this.product.price > 0) {
-          if (this.product.name != 'Mega Coverage') {
+          if (this.isNotMegaCoverage()) {
             this.product.price = this.product.price - 1;
           }
         }
       } else {
-        if (this.product.price < 50) {
+        if (this.hasProductRichMaximumPrice()) {
           this.product.price = this.product.price + 1;
-          if (this.product.name == 'Special Full Coverage') {
+          if (this.isSpecialFullCoverage()) {
             if (this.product.sellIn < 11) {
-              if (this.product.price < 50) {
+              if (this.hasProductRichMaximumPrice()) {
                 this.product.price = this.product.price + 1;
               }
             }
             if (this.product.sellIn < 6) {
-              if (this.product.price < 50) {
+              if (this.hasProductRichMaximumPrice()) {
                 this.product.price = this.product.price + 1;
               }
             }
           }
         }
       }
-      if (this.product.name != 'Mega Coverage') {
+      if (this.isNotMegaCoverage()) {
         this.product.sellIn = this.product.sellIn - 1;
       }
       if (this.product.sellIn < 0) {
-        if (this.product.name != 'Full Coverage') {
-          if (this.product.name != 'Special Full Coverage') {
+        if (this.isNotFullCoverage()) {
+          if (this.isNotSpecialFullCoverage()) {
             if (this.product.price > 0) {
-              if (this.product.name != 'Mega Coverage') {
+              if (this.isNotMegaCoverage()) {
                 this.product.price = this.product.price - 1;
               }
             }
@@ -52,7 +52,7 @@ class CarInsurance {
             this.product.price = this.product.price - this.product.price;
           }
         } else {
-          if (this.product.price < 50) {
+          if (this.hasProductRichMaximumPrice()) {
             this.product.price = this.product.price + 1;
           }
         }
@@ -60,6 +60,26 @@ class CarInsurance {
     }
 
     return this.products;
+  }
+
+  hasProductRichMaximumPrice() {
+    return this.product.price < 50
+  }
+
+  isSpecialFullCoverage() {
+    return this.product.name == 'Special Full Coverage';
+  }
+
+  isNotMegaCoverage() {
+    return this.product.name != 'Mega Coverage'
+  }
+
+  isNotSpecialFullCoverage() {
+    return this.product.name != 'Special Full Coverage';
+  }
+
+  isNotFullCoverage() {
+    return this.product.name != 'Full Coverage';
   }
 }
 
