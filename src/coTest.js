@@ -29,75 +29,59 @@ class Product {
   isSellInBellowZero() {
     return this.sellIn < 0
   }
+  isNamed(potentialName) {
+    return this.name === potentialName
+  }
 }
 
 class CarInsurance {
   constructor(products = []) {
     this.products = products;
-    this.product = null;
   }
-  updateProductPriceValue() {
-    if (this.isFullCoverage()) {
-      this.product.increaseProductPrice()
-      this.product.decreaseProductSellIn()
-      if (this.product.isSellInBellowZero()) {
-        this.product.increaseProductPrice()
-      }
-    }
-    else if (this.isSpecialFullCoverage()) {
-      this.product.increaseProductPrice()
-      if (this.product.sellIn <= 10) {
-        this.product.increaseProductPrice()
-      }
-      if (this.product.sellIn <= 5) {
-        this.product.increaseProductPrice()
-      }
-      this.decreaseProductSellIn();
-      if (this.product.isSellInBellowZero()) {
-        this.product.dropProductPrice();
-      }
-    }
-    else {
-      this.decreaseProductPrice()
-      this.decreaseProductSellIn();
-      if (this.product.isSellInBellowZero()) {
-        this.decreaseProductPrice()
-      }
-    }
-  }
-  
   updatePrice() {
     for (const product of this.products) {
-      this.product = product
-      
-      this.updateProductPriceValue();
+      new ProductEvaluator(product).execute();
     }
-
     return this.products;
   }
-  
-  decreaseProductSellIn() {
-    if (this.isNotMegaCoverage()) {
-      this.product.decreaseProductSellIn();
+}
+
+class ProductEvaluator {
+  constructor(product) {
+    this.product = product;
+  }
+  updateFullCoverage() {
+    this.product.increaseProductPrice()
+    this.product.decreaseProductSellIn()
+    if (this.product.isSellInBellowZero()) {
+      this.product.increaseProductPrice()
     }
   }
-
-  decreaseProductPrice() {
-    if (this.isNotMegaCoverage()) {
-      this.product.decreaseProductPrice();
+  updateSpecialFullCoverage() {
+    this.product.increaseProductPrice()
+    if (this.product.sellIn <= 10) {
+      this.product.increaseProductPrice()
+    }
+    if (this.product.sellIn <= 5) {
+      this.product.increaseProductPrice()
+    }
+    this.product.decreaseProductSellIn()
+    if (this.product.isSellInBellowZero()) {
+      this.product.dropProductPrice();
     }
   }
-
-  isSpecialFullCoverage() {
-    return this.product.name == 'Special Full Coverage';
+  updateNormalProduct() {
+    this.product.decreaseProductPrice()
+    this.product.decreaseProductSellIn()
+    if (this.product.isSellInBellowZero()) {
+      this.product.decreaseProductPrice()
+    }
   }
-
-  isNotMegaCoverage() {
-    return this.product.name != 'Mega Coverage'
-  }
-
-  isFullCoverage() {
-    return this.product.name == 'Full Coverage';
+  execute() {
+    if (this.product.isNamed("Mega Coverage")) {}
+    else if (this.product.isNamed("Full Coverage")) this.updateFullCoverage()
+    else if (this.product.isNamed("Special Full Coverage")) this.updateSpecialFullCoverage()
+    else this.updateNormalProduct()
   }
 }
 
