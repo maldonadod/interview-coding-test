@@ -6,7 +6,7 @@ const Product = coTest.Product;
 
 describe("Co Test", function() {
 
-  it("test 1", function() {
+  it("should price never be negative", function() {
     const coTest = new CarInsurance([ new Product("foo", 0, 0) ]);
 
     const products = coTest.updatePrice();
@@ -15,7 +15,7 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(-1);
     expect(products[0].price).equal(0);
   });
-  it("test 2", function() {
+  it("should price decrease twice when sell in is bellow zero", function() {
     const coTest = new CarInsurance([ new Product("foo", 0, 10) ]);
 
     const products = coTest.updatePrice();
@@ -24,7 +24,7 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(-1);
     expect(products[0].price).equal(8);
   });
-  it("test 3", function() {
+  it("should Full Coverage price increase when sell in decrease", function() {
     const coTest = new CarInsurance([ new Product("Full Coverage", 2, 10) ]);
 
     const products = coTest.updatePrice();
@@ -33,7 +33,7 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(1);
     expect(products[0].price).equal(11);
   });
-  it("test 4", function() {
+  it("should Full Coverage price increase twice when sell in decrease bellow zero", function() {
     const coTest = new CarInsurance([ new Product("Full Coverage", 0, 8) ]);
 
     const products = coTest.updatePrice();
@@ -42,7 +42,7 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(-1);
     expect(products[0].price).equal(10);
   });
-  it("test 5", function() {
+  it("should Full Coverage not increase when price is greater or equal than 50", function() {
     const coTest = new CarInsurance([ new Product("Full Coverage", 0, 50) ]);
 
     const products = coTest.updatePrice();
@@ -51,7 +51,7 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(-1);
     expect(products[0].price).equal(50);
   });
-  it("test 6", function() {
+  it("should Mega Coverage do not alter price nor sell in", function() {
     const coTest = new CarInsurance([ new Product("Mega Coverage", 0, 80) ]);
 
     const products = coTest.updatePrice();
@@ -60,7 +60,7 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(0);
     expect(products[0].price).equal(80);
   });
-  it("test 7", function() {
+  it("should Special Full Coverage drop price to zero when sell in is zero", function() {
     const coTest = new CarInsurance([ new Product("Special Full Coverage", 0, 80) ]);
 
     const products = coTest.updatePrice();
@@ -69,7 +69,7 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(-1);
     expect(products[0].price).equal(0);
   });
-  it("test 8", function() {
+  it("should Special Full Coverage increase price twice when sell in is 10 or bellow", function() {
     const coTest = new CarInsurance([ new Product("Special Full Coverage", 10, 40) ]);
 
     const products = coTest.updatePrice();
@@ -78,7 +78,7 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(9);
     expect(products[0].price).equal(42);
   });
-  it("test 9", function() {
+  it("should Special Full Coverage increase price thrice when sell in is 5 or bellow", function() {
     const coTest = new CarInsurance([ new Product("Special Full Coverage", 5, 40) ]);
 
     const products = coTest.updatePrice();
@@ -87,7 +87,7 @@ describe("Co Test", function() {
     expect(products[0].sellIn).equal(4);
     expect(products[0].price).equal(43);
   });
-  it("test 10", function() {
+  it("should Special Full Coverage increase price when sell in decreases and is greater than 10", function() {
     const coTest = new CarInsurance([ new Product("Special Full Coverage", 11, 45) ]);
 
     const products = coTest.updatePrice();
