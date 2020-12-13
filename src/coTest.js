@@ -23,6 +23,9 @@ class Product {
   isProductPriceNonNegative() {
     return this.price > 0
   }
+  decreaseProductSellIn() {
+    this.sellIn = this.sellIn - 1;
+  }
 }
 
 class CarInsurance {
@@ -76,7 +79,7 @@ class CarInsurance {
   
   decreaseProductSellIn() {
     if (this.isNotMegaCoverage()) {
-      this.product.sellIn = this.product.sellIn - 1;
+      this.product.decreaseProductSellIn();
     }
   }
 
