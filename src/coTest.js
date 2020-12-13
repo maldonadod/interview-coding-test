@@ -18,10 +18,10 @@ class CarInsurance {
         this.increaseProductPrice()
       } else if (this.isSpecialFullCoverage()) {
         this.increaseProductPrice()
-        if (this.product.sellIn < 11) {
+        if (this.product.sellIn <= 10) {
           this.increaseProductPrice()
         }
-        if (this.product.sellIn < 6) {
+        if (this.product.sellIn <= 5) {
           this.increaseProductPrice()
         }
       } else {
