@@ -9,11 +9,19 @@ class Product {
       this.price = this.price + 1;
     }
   }
+  decreaseProductPrice() {
+    if (this.isProductPriceNonNegative()) {
+      this.price = this.price - 1;
+    }
+  }
   productHasNotRichMaximumPrice() {
     return this.price < 50
   }
   dropProductPrice() {
     this.price = this.price - this.price;
+  }
+  isProductPriceNonNegative() {
+    return this.price > 0
   }
 }
 
@@ -73,15 +81,9 @@ class CarInsurance {
   }
 
   decreaseProductPrice() {
-    if (this.isProductPriceNonNegative()) {
-      if (this.isNotMegaCoverage()) {
-        this.product.price = this.product.price - 1;
-      }
+    if (this.isNotMegaCoverage()) {
+      this.product.decreaseProductPrice();
     }
-  }
-  
-  isProductPriceNonNegative() {
-    return this.product.price > 0
   }
 
   isSpecialFullCoverage() {
