@@ -11,10 +11,11 @@ class CarInsurance {
     this.products = products;
     this.product = null;
   }
-  applyBeforeSellInDecrease() {
+  updatesBeforeSellInDecreases() {
     if (this.isFullCoverage()) {
       this.increaseProductPrice()
-    } else if (this.isSpecialFullCoverage()) {
+    }
+    else if (this.isSpecialFullCoverage()) {
       this.increaseProductPrice()
       if (this.product.sellIn <= 10) {
         this.increaseProductPrice()
@@ -22,11 +23,12 @@ class CarInsurance {
       if (this.product.sellIn <= 5) {
         this.increaseProductPrice()
       }
-    } else {
+    }
+    else {
       this.decreaseProductPrice()
     }
   }
-  applyAfterSellInDecrease() {
+  updatesAfterSellInDecreases() {
     if (this.product.sellIn < 0) {
       if (this.isFullCoverage()) {
         this.increaseProductPrice()
@@ -43,11 +45,11 @@ class CarInsurance {
     for (const product of this.products) {
       this.product = product
       
-      this.applyBeforeSellInDecrease();
+      this.updatesBeforeSellInDecreases();
 
       this.decreaseProductSellIn();
 
-      this.applyAfterSellInDecrease();
+      this.updatesAfterSellInDecreases();
     }
 
     return this.products;
