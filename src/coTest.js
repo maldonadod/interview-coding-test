@@ -11,36 +11,43 @@ class CarInsurance {
     this.products = products;
     this.product = null;
   }
-  updatePrice() {
-    for (var i = 0; i < this.products.length; i++) {
-      this.product = this.products[i]
+  applyBeforeSellInDecrease() {
+    if (this.isFullCoverage()) {
+      this.increaseProductPrice()
+    } else if (this.isSpecialFullCoverage()) {
+      this.increaseProductPrice()
+      if (this.product.sellIn <= 10) {
+        this.increaseProductPrice()
+      }
+      if (this.product.sellIn <= 5) {
+        this.increaseProductPrice()
+      }
+    } else {
+      this.decreaseProductPrice()
+    }
+  }
+  applyAfterSellInDecrease() {
+    if (this.product.sellIn < 0) {
       if (this.isFullCoverage()) {
         this.increaseProductPrice()
-      } else if (this.isSpecialFullCoverage()) {
-        this.increaseProductPrice()
-        if (this.product.sellIn <= 10) {
-          this.increaseProductPrice()
-        }
-        if (this.product.sellIn <= 5) {
-          this.increaseProductPrice()
-        }
       } else {
-        this.decreaseProductPrice()
+        if (this.isSpecialFullCoverage()) {
+          this.dropProductPrice();
+        } else {
+          this.decreaseProductPrice()
+        }
       }
+    }
+  }
+  updatePrice() {
+    for (const product of this.products) {
+      this.product = product
+      
+      this.applyBeforeSellInDecrease();
 
       this.decreaseProductSellIn();
 
-      if (this.product.sellIn < 0) {
-        if (this.isFullCoverage()) {
-          this.increaseProductPrice()
-        } else {
-          if (this.isSpecialFullCoverage()) {
-            this.dropProductPrice();
-          } else {
-            this.decreaseProductPrice()
-          }
-        }
-      }
+      this.applyAfterSellInDecrease();
     }
 
     return this.products;
