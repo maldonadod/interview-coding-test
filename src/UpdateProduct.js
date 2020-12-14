@@ -1,6 +1,7 @@
 const MEGA_COVERAGE = "Mega Coverage"
 const FULL_COVERAGE = "Full Coverage"
 const SPECIAL_FULL_COVERAGE = "Special Full Coverage"
+const SUPER_SALE = "Super Sale"
 
 class UpdateProduct {
   constructor(product) {
@@ -23,10 +24,16 @@ class UpdateProduct {
     this.product.decreaseSellIn()
     this.product.ifSellIn(isLowerThan(0), () => this.product.decreasePrice())
   }
+  updateSuperSale() {
+    this.product.decreaseSellIn()
+    this.product.decreasePrice()
+    this.product.decreasePrice()
+  }
   execute() {
     if (this.product.isNamed(MEGA_COVERAGE)) {}
     else if (this.product.isNamed(FULL_COVERAGE)) this.updateFullCoverage()
     else if (this.product.isNamed(SPECIAL_FULL_COVERAGE)) this.updateSpecialFullCoverage()
+    else if (this.product.isNamed(SUPER_SALE)) this.updateSuperSale()
     else this.updateNormalProduct()
   }
 }

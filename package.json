@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc mocha spec/*.js",
     "tst": "mocha spec/*.js",
-    "after-30-days": "node report.js > report.txt"
+    "after-30-days": "node report.js"
   },
   "repository": {
     "type": "git",
