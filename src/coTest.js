@@ -6,10 +6,11 @@ class CarInsurance {
     this.products = products;
   }
   updatePrice() {
+    const products = []
     for (const product of this.products) {
-      new UpdateProduct(product).execute();
+      products.push(new UpdateProduct(product).execute());
     }
-    return this.products;
+    return products;
   }
 }
 

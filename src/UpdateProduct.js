@@ -3,46 +3,37 @@ const FULL_COVERAGE = "Full Coverage"
 const SPECIAL_FULL_COVERAGE = "Special Full Coverage"
 const SUPER_SALE = "Super Sale"
 
+const FullCoverageProduct = require("./FullCoverageProduct");
+const SpecialFullCoverageProduct = require("./SpecialFullCoverageProduct");
+const NormalProduct = require("./NormalProduct");
+const SuperSaleProduct = require("./SuperSaleProduct");
+
 class UpdateProduct {
   constructor(product) {
     this.product = product;
   }
-  updateFullCoverage() {
-    this.product.increasePrice()
-    this.product.decreaseSellIn()
-    this.product.ifSellIn(isLowerThan(0), () => this.product.increasePrice())
+  newFullCoverage(product) {
+    return new FullCoverageProduct(product)
   }
-  updateSpecialFullCoverage() {
-    this.product.increasePrice()
-    this.product.ifSellIn(isLowerOrEqualThan(10), () => this.product.increasePrice())
-    this.product.ifSellIn(isLowerOrEqualThan(5), () => this.product.increasePrice())
-    this.product.decreaseSellIn()
-    this.product.ifSellIn(isLowerThan(0), () => this.product.dropPrice())
+  newSpecialFullCoverage(product) {
+    return new SpecialFullCoverageProduct(product)
   }
-  updateNormalProduct() {
-    this.product.decreasePrice()
-    this.product.decreaseSellIn()
-    this.product.ifSellIn(isLowerThan(0), () => this.product.decreasePrice())
+  newNormalProduct(product) {
+    return new NormalProduct(product)
   }
-  updateSuperSale() {
-    this.product.decreaseSellIn()
-    this.product.decreasePrice()
-    this.product.decreasePrice()
+  newSuperSale(product) {
+    return new SuperSaleProduct(product)
+  }
+  newMegaCoverage(product) {
+    return product
   }
   execute() {
-    if (this.product.isNamed(MEGA_COVERAGE)) {}
-    else if (this.product.isNamed(FULL_COVERAGE)) this.updateFullCoverage()
-    else if (this.product.isNamed(SPECIAL_FULL_COVERAGE)) this.updateSpecialFullCoverage()
-    else if (this.product.isNamed(SUPER_SALE)) this.updateSuperSale()
-    else this.updateNormalProduct()
+    if (this.product.isNamed(MEGA_COVERAGE)) return this.newMegaCoverage(this.product)
+    else if (this.product.isNamed(FULL_COVERAGE)) return this.newFullCoverage(this.product)
+    else if (this.product.isNamed(SPECIAL_FULL_COVERAGE)) return this.newSpecialFullCoverage(this.product)
+    else if (this.product.isNamed(SUPER_SALE)) return this.newSuperSale(this.product)
+    else return this.newNormalProduct(this.product)
   }
-}
-
-function isLowerThan(numberToCompare) {
-  return sellIn => sellIn < numberToCompare
-}
-function isLowerOrEqualThan(numberToCompare) {
-  return sellIn => sellIn <= numberToCompare
 }
 
 module.exports = UpdateProduct;
