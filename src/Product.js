@@ -28,8 +28,10 @@ class Product {
   isNamed(potentialName) {
     return this.name === potentialName
   }
-  ifSellIn(matcher, action) {
-    if (matcher(this.sellIn)) action()
+  ifSellInIsLowerThan(sellInToCompare, action) {
+    if (this.sellIn < sellInToCompare) {
+      action()
+    }
   }
 }
 
